@@ -26,6 +26,7 @@ import { store } from '../../store.js'
 
 import Alert from 'react-alert'
 
+import 'url-search-params-polyfill'
 
 const mapDispatchToProps = ( dispatch, ownProps ) => {
   let actions = {
@@ -57,16 +58,49 @@ class Login extends PureComponent {
           email:'',
           password:'',
           submitted: false,
-          error: null
+          error: null,
+          // fromConfirmLink: false,
+          // confirmedUser: {
+          //   name: '',
+          //   email: ''
+          // }
         }
 
         this.alertOptions = {
           offset: 20,
-          position: 'top right',
-          theme: 'dark',
+          position: 'top center',
+          theme: 'light',
           time: 5000,
           transition: 'fade'
         }
+    }
+
+
+    componentDidMount(){
+      let search = new URLSearchParams (this.props.location.search)
+
+      let name = search.get('name')
+      let email = search.get('email')
+
+      if ( Ru.isNotNil(name) && Ru.isNotNil(email) ) {
+        // this.state({
+        //   fromConfirmLink: true,
+        //   confirmedUser: {
+        //     name: decodeURIComponent(name),
+        //     email: decodeURIComponent(email)
+        //   }
+        // })
+
+        this.msg.show(
+          `Thank you ${name} for registering. \nPlease, login now to buy tokens and view your dashboard`,
+          {
+            time: 10000,
+            type: 'success',
+            //  icon: <img src="path/to/some/img/32x32.png" />
+          }
+        )
+
+      }
     }
 
     handleSubmit(e) {

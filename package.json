@@ -35,8 +35,8 @@
     "install": "^0.10.1",
     "material-ui": "^0.19.4",
     "react": "^15.6.1",
-    "react-bootstrap": "^0.31.5",
     "react-alert": "^2.4.0",
+    "react-bootstrap": "^0.31.5",
     "react-dom": "^15.6.2",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
@@ -51,6 +51,7 @@
     "resolve-url-loader": "^2.1.0",
     "rutils": "^1.0.22",
     "updeep": "^1.0.0",
+    "url-search-params-polyfill": "^2.0.1",
     "web3": "^1.0.0-beta.23"
   }
 }
