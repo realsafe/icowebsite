@@ -18,6 +18,8 @@ import { connect } from 'react-redux'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+import LaddaButton, { S, ZOOM_IN } from 'react-ladda';
+
 import { crypto } from '../../services'
 
 import B from 'bluebird'
@@ -55,10 +57,11 @@ class Login extends PureComponent {
     constructor(props) {
         super(props)
         this.state = {
-          email:'',
-          password:'',
-          submitted: false,
-          error: null,
+            loading: false ,
+            email:'',
+            password:'',
+            submitted: false,
+            error: null,
           // fromConfirmLink: false,
           // confirmedUser: {
           //   name: '',
@@ -107,7 +110,7 @@ class Login extends PureComponent {
 
         console.log('this.props:::', this.props);
 
-        this.setState({ submitted: true, error: null });
+        this.setState({ submitted: true, error: null, loading: true });
 
         let { email, password } = this.state
 
@@ -133,7 +136,11 @@ class Login extends PureComponent {
         }))
         .catch(err => {
           console.log( 'Err-Login', err );
-          this.setState({ error: err }, this.showAlert )
+          this.setState({
+            error: err,
+                loading: false,
+                password: '',
+            }, this.showAlert )
         })
 
 
@@ -151,8 +158,14 @@ class Login extends PureComponent {
         this.setState({ [name]: value });
     }
 
+    handleButton(email, password) {
+        if (!email || !password) {
+            this.setState({loading: false });
+        }
+    }
+
     render(){
-        const { email, password, submitted, error } = this.state
+        const { email, password, submitted, loading, error } = this.state
         return(
              <MuiThemeProvider>
                 <section className="login-section section">
@@ -195,7 +208,18 @@ class Login extends PureComponent {
 
                                     </div>
                                     <div className="btn-contain">
-                                        <button className="btn btn-login">Log In</button>
+                                        <LaddaButton
+                                        className="btn btn-login"
+                                        loading={ loading }
+                                        data-color="#eee"
+                                        data-size={ S }
+                                        onClick= { this.handleButton(email, password) }
+                                        data-style={ ZOOM_IN }
+                                        data-spinner-size={ 30 }
+                                        data-spinner-color="#ddd"
+                                        data-spinner-lines={ 12 }
+                                        >Log In
+                                        </LaddaButton>
                                         <Link to="/register" className="btn btn-link">Sign Up</Link>
                                     </div>
                                 </form>
