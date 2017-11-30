@@ -19,7 +19,7 @@ const getApi = token => mkApi({
   getToken: Ru.K(token),
   apiRoute: 'api',
   //rootUrl: 'https://ico.realsafe.co',
-  rootUrl: 'http://localhost:3051',
+  rootUrl: 'http://localhost:3050',
   versionUrl: Ru.K(''),
   logger: true,
   // xfInput: snakeCaseKeysIfObj
